@@ -1,12 +1,22 @@
-var http = require("http");
+var http = require("http")
+,   url = require("url")
+,   router = require("./router");
 
-function onRequest(request, response) {
-  console.log("Request recieved.");
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Hello World");
-  response.end();
+function start(route, handle) {
+  // Asynchronous callback function to handle requests
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for" + pathname + " recieved.");
+
+    route(handle, pathname);
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Hello World");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
 }
 
-http.createServer(onRequest).listen(8888);
-
-console.log("Server has started.");
+exports.start = start; // Turn this into a module

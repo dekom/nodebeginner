@@ -49,3 +49,10 @@ passed into the query calls are passed back sequentially (I think that's what
 it means?).
 
 Node is really good with *low response times and high concurrency*.
+
+### Creating a Module ###
+
+"Making some code a module means we need to **export** those parts of its
+functionality that we want to provide to scripts that require our module."
+
+
